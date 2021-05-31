@@ -4,7 +4,7 @@ module.exports = {
 
 	server_port: 3000,
 	init_db: false,
-	env: 0, // ( 0 - local, 1 - dev, 2 - prod )
+	env: 1, // ( 0 - local, 1 - dev, 2 - prod )
 
 	db_name: 'imgn',
 
