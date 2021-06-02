@@ -4,7 +4,7 @@ module.exports = {
 
 	server_port: 3000,
 	init_db: false,
-	env: 0, // ( 0 - local, 1 - dev, 2 - prod )
+	env: 1, // ( 0 - local, 1 - dev, 2 - prod )
 
 	db_name: 'imgn',
 
@@ -12,13 +12,9 @@ module.exports = {
 	db_root_local: 'root',
 	db_pass_local: '',
 
-	db_path_dev: 'imgn-database-1.cvtylkjc9pqm.us-east-1.rds.amazonaws.com',
+	db_path_dev: 'synopsis-db.cxrrvbjsckdc.us-east-2.rds.amazonaws.com',
 	db_root_dev: 'admin',
-	db_pass_dev: 'stav1122',
-
-	db_path_prod: 'database-imgn-1.c8jwzhyu8acw.us-east-2.rds.amazonaws.com',
-	db_root_prod: 'admin',
-	db_pass_prod: 'stav1122',
+	db_pass_dev: 'Creative25',
 
 	breakdown_server: true,
 	script_breakdown_server_ip_local: 'http://localhost:8000/',
