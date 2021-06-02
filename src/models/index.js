@@ -3,7 +3,7 @@ const Sequelize = require("sequelize");
 var config = require('../config/config');
 
 const fs = require('fs');
-const rdsCa = fs.readFileSync(__dirname + '/../../key/imgn-key.pem');
+// const rdsCa = fs.readFileSync(__dirname + '/../../key/imgn-key.pem');
 
 let db_name = config.db_name;
 let host = config.db_path_local;
