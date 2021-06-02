@@ -54,7 +54,11 @@ module.exports = (sequelize, Sequelize) => {
       attachments: {
         type: DataTypes.JSON,
         defaultValue: []
-      }
+      },
+      img_path: {
+        type: DataTypes.TEXT,
+        defaultValue: ""
+      },
     },
     {
       charset: 'utf8',
