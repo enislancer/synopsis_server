@@ -9,9 +9,9 @@ module.exports = {
 	db_name: 'imgn',
 
 
-	db_path_local: 'synopsis-db.cxrrvbjsckdc.us-east-2.rds.amazonaws.com',
-	db_root_local: 'admin',
-	db_pass_local: 'Creative25',
+	db_path_local: 'localhost',
+	db_root_local: 'root',
+	db_pass_local: '',
 
 	breakdown_server: true,
 	
