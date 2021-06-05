@@ -46,6 +46,7 @@ const routes = (route) => {
 	route.route('/imgn/api/v1/user/invite').post(userController.inviteUser);
 	route.route('/imgn/api/v1/user/project/add').post(userController.projectAdd);
 	route.route('/imgn/api/v1/user/project/remove').post(userController.projectRemove);
+	route.route('/imgn/api/v1/user/project/edit').put(userController.projectEdit);
 	route.route('/imgn/api/v1/user/acceptInvitation/:company_id/:email/:code').get(userController.acceptInvitation);
 	route.route('/imgn/api/v1/user/company/get/:company_id').get(confirmUserMiddleware(true), userController.getAllCompanyUsers);
 	route.route('/imgn/api/v1/user/name/get/:user_name').get(confirmUserMiddleware(true), userController.getUserName);

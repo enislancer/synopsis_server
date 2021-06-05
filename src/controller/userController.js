@@ -9,6 +9,7 @@ import mailer from '../utils/mailer'
 import * as jwt from 'jsonwebtoken';
 import AppError from '../utils/AppError';
 import utils from '../utils/utils';
+import {dbConn} from '../utils/database';
 const httpStatus = require('http-status');
 var config = require('../config/config');
 
@@ -21,8 +22,8 @@ var path = require('path');
 var apikey = require("apikeygen").apikey;
 var awsSDK = require('../utils/awsSDK')
 
-const expTokenHours = 4;
 
+const expTokenHours = 4;
 const UserController = {
 	
 	register: async (req, res, next) => {
@@ -1537,7 +1538,47 @@ const UserController = {
 			}
 		}
 	},
+	/*
+	projectEdit: async (req, res, next) => {
+		//Edit project name and profile image code
+		var project_name = req.body.project_name;
+		var project_id = parseInt(req.body.id);
+		var project_img = req.body.img_path;
+
+        let sqlQuery;
+		if(project_id !='' && project_id !=''){
+			sqlQuery = "UPDATE project SET project_name='" + project_name + "' WHERE id=" + project_id;
+		}
+		if(project_img != '' && project_id !=''){
+			sqlQuery = "UPDATE project SET img_path='" + project_img + "' WHERE id=" + project_id;
+		}
+
+	    let sql = sqlQuery
+	    let sqlCon = await dbConn();	
+	    let query = sqlCon.query(sql, (err, result) => {
+			if (err) throw err;
+			if(result.affectedRows === 1){
+				res.send(JSON.stringify({ status: 200, error: null, response: "Record updated SuccessFully" }));
+			}else{
+				res.send(JSON.stringify({ status: 403, error: 'error', response: "Something want wrong." }));
+
+			}
+		});
+	},
+	*/
+	projectEdit: async (req, res, next) => {
+		//Edit project name and profile image code
+		try{
+			let project_name = req.body.project_name;
+			let project_id = parseInt(req.body.id);
+
+			let result = await Project.update({project_name:project_name}, {where: { project_id: project_id}});
 	
+			res.send(JSON.stringify({ status: 200, error: null, response: "Record updated SuccessFully" }));
+		}catch(error){
+			res.send(JSON.stringify({ status: 403, error: error, response: "Something want wrong." }));
+		}
+	},
 	acceptInvitation: async (req, res, next) => {
 		let company_id = parseInt(req.params.company_id);
 		let email = req.params.email;

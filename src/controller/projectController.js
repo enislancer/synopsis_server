@@ -4373,7 +4373,6 @@ const ProjectController = {
 			})
 		}
 	},
-
 	getAllProjectFiles: async (req, res, next) => {
 		try {
 			let project_id = parseInt(req.params.project_id);
@@ -10545,5 +10544,7 @@ z
 		}
 	}
 };
+
+
 
 export default ProjectController;

@@ -26,3 +26,21 @@ module.exports = {
 
 	
 }
+
+// const Sequelize = require('sequelize');
+// const sequelize = new Sequelize('imgn','mahesh','mahesh',{
+//   // The `host` parameter is required for other databases
+//   host: 'localhost',
+//   dialect: 'mysql',
+//   pool : {max:5,min:0,ide:1000}
+// });
+
+// sequelize
+//   .authenticate()
+//   .then(() => {
+//     console.log('Connection has been established successfully.');
+//   })
+//   .catch(err => {
+//     console.error('Unable to connect to the database:', err);
+//   });
+
