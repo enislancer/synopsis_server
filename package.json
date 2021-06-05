@@ -63,6 +63,7 @@
     "node-summary": "^1.2.0",
     "nodemailer": "^6.4.11",
     "nodemailer-smtp-transport": "^2.7.4",
+    "nodemon": "^2.0.7",
     "office-document-properties": "^1.0.10",
     "office2html": "0.0.2",
     "officegen": "^0.6.5",

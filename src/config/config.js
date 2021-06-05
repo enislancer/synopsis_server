@@ -10,7 +10,7 @@ module.exports = {
 
 
 	db_path_local: 'localhost',
-	db_root_local: '', // ok. and then lets do it later. just a sec
+	db_root_local: 'root', // ok. and then lets do it later. just a sec
 	db_pass_local: '',
 
 	breakdown_server: true,
