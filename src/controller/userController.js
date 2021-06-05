@@ -1546,7 +1546,7 @@ const UserController = {
 
         let sqlQuery;
 		if(project_id !='' && project_id !=''){
-			sqlQuery = "UPDATE project SET project_name='" + project_name + "' WHERE id=" + project_id;
+			sqlQuery = "UPDATE project SET project_name='" + project_name + "' WHERE id=" + project_id; //this is low skill
 		}
 		if(project_img != '' && project_id !=''){
 			sqlQuery = "UPDATE project SET img_path='" + project_img + "' WHERE id=" + project_id;
@@ -1569,13 +1569,23 @@ const UserController = {
 		//Edit project name and profile image code
 		try{
 			let project_name = req.body.project_name;
-			let project_id = parseInt(req.body.id);
+			let project_id = parseInt(req.body.project_id);
 
-			let result = await Project.update({project_name:project_name}, {where: { project_id: project_id}});
-	
-			res.send(JSON.stringify({ status: 200, error: null, response: "Record updated SuccessFully" }));
+			let result = await Project.update({project_name:project_name}, {where: { id: project_id}});
+			
+			let project = await Porject.findone({where: {id: project_id}})
+			return res.json({
+				response: 0,
+				err: "",
+				project: project
+			})
+			
 		}catch(error){
-			res.send(JSON.stringify({ status: 403, error: error, response: "Something want wrong." }));
+			return res.json({
+				response: 1,
+				err: error,
+				p
+			})
 		}
 	},
 	acceptInvitation: async (req, res, next) => {
