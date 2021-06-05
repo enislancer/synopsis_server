@@ -9,7 +9,6 @@ import mailer from '../utils/mailer'
 import * as jwt from 'jsonwebtoken';
 import AppError from '../utils/AppError';
 import utils from '../utils/utils';
-import {dbConn} from '../utils/database';
 const httpStatus = require('http-status');
 var config = require('../config/config');
 
