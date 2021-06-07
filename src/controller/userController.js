@@ -1360,6 +1360,34 @@ const UserController = {
 		})
 	},
 
+	projectNameEdit: async (req, res, next) => {
+		
+		
+			let project_name = req.body.project_name;
+			let project_id = parseInt(req.body.project_id);
+			
+			let result = await Project.update({project_name:project_name}, {where: { id: project_id}});
+			if (result) {
+				let project = await Project.findOne({where: {id: project_id}})
+				if (project)
+					return res.json({
+						response: 0,
+						err: "",
+						project: project
+					})
+			}
+			else{
+				return res.json({
+					response: 1,
+					err: "No item",
+					
+				})
+			}
+			
+
+		
+	},
+
 	inviteUser: async (req, res, next) => {
 
 		var user_id = parseInt(req.body.user_id);
