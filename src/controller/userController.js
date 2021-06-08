@@ -9,6 +9,7 @@ import mailer from '../utils/mailer'
 import * as jwt from 'jsonwebtoken';
 import AppError from '../utils/AppError';
 import utils from '../utils/utils';
+
 const httpStatus = require('http-status');
 var config = require('../config/config');
 
@@ -1361,8 +1362,6 @@ const UserController = {
 	},
 
 	projectNameEdit: async (req, res, next) => {
-		
-		
 			let project_name = req.body.project_name;
 			let project_id = parseInt(req.body.project_id);
 			
@@ -1383,7 +1382,40 @@ const UserController = {
 					
 				})
 			}
+	},
+
+	projectImageUpload: async(req, res, next) => {
+		
+	
+		let img_path = req.files.file.originalFilename
+		
+		let file = req.files.file
+		var mv = require('mv')
+		
+		mv(file.path, path.join(serveStaticpath , file.name), {mkdirp: true} , function(err){
 			
+		})
+
+		let project_id = parseInt(req.body.project_id)
+		
+		let result = await Project.update({img_path:img_path}, {where: { id: project_id}});
+		if (result) {
+			let project = await Project.findOne({where: {id: project_id}})
+			if (project)
+				return res.json({
+					response: 0,
+					err: "",
+					img_path: project.img_path
+				})
+		}
+		else{
+			return res.json({
+				response: 1,
+				err: "No item",
+				
+			})
+		}
+
 
 		
 	},

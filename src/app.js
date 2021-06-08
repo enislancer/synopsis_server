@@ -27,6 +27,10 @@ const app = express();
 const formData = require('express-form-data')
 app.use(formData.parse())
 
+global.serveStaticpath = __dirname +'/public'
+app.use(express.static(__dirname +'/public'));
+
+
 //app.use(session({ secret: JWT_SECRET }));
 app.use(session({
     secret: JWT_SECRET,
