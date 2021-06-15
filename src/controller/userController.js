@@ -394,6 +394,9 @@ const UserController = {
 				country_id: user.dataValues.country_id,
 				first_name: user.dataValues.first_name,
 				last_name: user.dataValues.last_name,
+				fullName: user.dataValues.fullName,
+				profileImage: user.dataValues.profileImage,
+				phoneNumber: user.dataValues.phoneNumber,
 				permission_type_id: permission_type_id,
 				permission_type: permission_type,
 				permission_status_id: permission_status_id,
@@ -525,20 +528,26 @@ const UserController = {
 
 	updateProfile: async (req, res, next) => {
 		try {
-
-			let user_id = parseInt(req.body.user_id);
-			let admin_user_id = parseInt(req.body.admin_user_id);
-			let email = req.body.email;
+			let body = req.body.userData;
+			if(body===undefined){
+				body = req.body;
+			}
+			let user_id = parseInt(body.id);
+			let admin_user_id = parseInt(body.admin_user_id);
+			let email = body.email;
+			let fullName = body.fullName;
+			let phoneNumber = body.phoneNumber;
 			//let password = req.body.password;
-			let company_id = req.body.company_id;
-			let country_id = req.body.country_id;
-			let first_name = req.body.first_name;
-			let last_name = req.body.last_name;
-			let permission_type_id = req.body.permission_type_id;
-			let permission_status_id = req.body.permission_status_id;
-			let supplier_job_title_id = req.body.supplier_job_title_id;
-			let projects = req.body.projects;
-			let attachments = req.body.attachments;
+			let company_id = body.company_id;
+			let country_id = body.country_id;
+			let first_name = body.first_name;
+			let last_name = body.last_name;
+			let permission_type_id = body.permission_type_id;
+			let permission_status_id = body.permission_status_id;
+			let supplier_job_title_id = body.supplier_job_title_id;
+			let projects = body.projects;
+			let attachments = body.attachments;
+			let profileImage = body.profileImage;
 
 			let user1 = null;
 			if (email && (email.length > 0)) {
@@ -546,7 +555,10 @@ const UserController = {
 			}
 
 			let user2 = null;
+			user2 = await User.findOne({ where: { id: user_id } });
+			console.log(user2);
 			if (user_id && !isNaN(user_id) && (user_id > 0)) {
+
 				user2 = await User.findOne({ where: { id: user_id } });
 			}
 
@@ -564,7 +576,9 @@ const UserController = {
 			}
 
 			let user = null;
+			console.log(user2);
 			if (user1) {
+				console.log(user2);
 				user = user1.dataValues;
 			} else {
 				if (user2) {
@@ -627,8 +641,16 @@ const UserController = {
 			if (projects) {
 				params = {...params, projects: projects}
 			}
+			if (fullName) {
+				params = {...params, fullName: fullName}
+			}
+			if (phoneNumber) {
+				params = {...params, phoneNumber: phoneNumber}
+			}
 			if (attachments) {
 				params = {...params, attachments: attachments}
+			} if(profileImage) {
+				params = {...params, profileImage: profileImage}
 			}
 
 			var folder = 'user/'+user_id+'/'
@@ -1420,6 +1442,48 @@ const UserController = {
 		
 	},
 
+
+	profileImageUpload: async(req, res, next) => {
+		
+		
+		// let img_path = req.files.file.originalFilename;
+		let file = req.body.file;
+		let user_id = parseInt(req.body.user_id)
+		console.log(file);	
+		// var mv = require('mv')
+
+		
+		// mv(file.path, path.join(serveStaticpath,'/userProfile/' ,  req.body.user_id, '/', file.name), {mkdirp: true} , function(err){	
+		// 	console.log(err)	
+		// })
+
+		let result = await User.update({profileImage:file}, {where: { id: user_id}}).catch(
+			(e) => res.json(e)
+		)
+		if (result) {
+			let user = await User.findOne({where: {id: user_id}}).catch(
+				(e) => res.json(e)
+			)
+			if (user)
+				return res.json({
+					response: 0,
+					err: '',
+					img_path: serveStaticpath + '/userProfile/' + user_id,
+				})
+		}
+		else{
+			return res.json({
+				response: 1,
+				err: "No image",
+				
+			})
+		}
+
+
+		
+	},
+
+
 	inviteUser: async (req, res, next) => {
 
 		var user_id = parseInt(req.body.user_id);
@@ -1982,6 +2046,7 @@ const UserController = {
 		try {
 			let user_id = parseInt(req.body.user_id);
 			let text = req.body.text;
+			console.log(req.files)
 
 			if (!text) {
 				text = '';

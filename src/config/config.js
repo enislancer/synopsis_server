@@ -11,7 +11,7 @@ module.exports = {
 
 	db_path_local: 'localhost',
 	db_root_local: 'root',
-	db_pass_local: 'password',
+	db_pass_local: 'wahab',
 
 	breakdown_server: true,
 	
