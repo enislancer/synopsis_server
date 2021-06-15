@@ -225,9 +225,6 @@ const routes = (route) => {
 	route.route('/imgn/api/v1/pay/execute').post(payController.execute);
 	route.route('/imgn/api/v1/pay/cancel').get(payController.cancel);
 	route.route('/imgn/api/v1/pay/return').get(payController.return);
-
-	// route.route('/imgn/api/v1/user/photoURL').get(express.static(__dirname + '/public/userProfile'))
-
 	//route.route('/imgn/api/v1/seed/:model/:number').get(seedController.seed);
 	//route.route('/imgn/api/v1/seed/fillDB').get(seedController.fillDB);
 };
