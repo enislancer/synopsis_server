@@ -23,10 +23,6 @@ module.exports = (sequelize, Sequelize) => {
 				type: DataTypes.INTEGER,
 				defaultValue: 0
 			},
-			fullName: {
-				type: DataTypes.TEXT,
-				defaultValue: ''
-			},
 			first_name: {
 				type: DataTypes.TEXT,
 				defaultValue: ''
@@ -47,10 +43,6 @@ module.exports = (sequelize, Sequelize) => {
 				type: DataTypes.TEXT,
 				defaultValue: ''
 			},*/
-			phoneNumber: {
-				type: DataTypes.TEXT,
-				defaultValue: ''
-			},
 			permission_status_id: {
 				type: DataTypes.INTEGER,
 				defaultValue: 0
@@ -66,10 +58,6 @@ module.exports = (sequelize, Sequelize) => {
 			projects: {
 				type: DataTypes.JSON,
 				defaultValue: []
-			},
-			profileImage:{
-				type: DataTypes.TEXT,
-        		defaultValue: ""
 			},
 			attachments: {
 				type: DataTypes.JSON,

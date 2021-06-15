@@ -1,5 +1,6 @@
 "use strict";
 import DataTypes from "sequelize";
+import { stringify } from "uuid";
 
 module.exports = (sequelize, Sequelize) => {
   const ProjectShootingDay = sequelize.define(
