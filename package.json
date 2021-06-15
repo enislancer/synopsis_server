@@ -1,5 +1,5 @@
 {
-  "name": "synopsis",
+  "name": "Synopsis",
   "version": "1.0.1",
   "scripts": {
     "start": "node src/index.js",
@@ -95,7 +95,6 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-preset-stage-2": "^6.24.1",
-    "nodemon": "^2.0.7"
+    "babel-preset-stage-2": "^6.24.1"
   }
 }
