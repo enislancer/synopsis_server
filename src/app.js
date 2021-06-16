@@ -11,6 +11,7 @@ import AppError from './utils/AppError';
 import utils from './utils/utils';
 var config = require('./config/config');
 var apikey = require("apikeygen").apikey;
+const path = require('path');
 
 const session = require('express-session');
 const httpStatus = require('http-status');
@@ -26,6 +27,11 @@ const app = express();
 
 const formData = require('express-form-data')
 app.use(formData.parse())
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb'}));
+global.serveStaticpath = __dirname +'/public'
+app.use( express.static(__dirname +'/public'));
+
 
 //app.use(session({ secret: JWT_SECRET }));
 app.use(session({
@@ -40,7 +46,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(cors())
 
-const path = require('path');
 
 winston.add(
 	new winston.transports.Console({

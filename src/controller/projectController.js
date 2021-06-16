@@ -3739,7 +3739,7 @@ const ProjectController = {
 								if (scene && scene.characters && (scene.characters.length > 0)) {
 									for (var j2 = 0; j2 < scene.characters.length; j2++) {
 										let character = scene.characters[j2];
-										if (character) {
+										if (character) {	
 											let char = await Character.findOne({where: { id: character.character_id }})
 											if (char && char.dataValues && (character.supplier_id <= 0) && (char.dataValues.supplier_id > 0)) {
 												character.supplier_id = char.dataValues.supplier_id;
@@ -3814,7 +3814,13 @@ const ProjectController = {
 													}
 												}
 											}
-											characters_list.push(character);
+											
+											if(char){
+									
+												characters_list.push(char);
+											}
+											// characters_list.push(character);
+										
 										}
 									}
 								}
@@ -3862,7 +3868,7 @@ const ProjectController = {
 				characters: characters_list,
 				actors: actors_list
 			}
-
+			
 			return res.json(characters_list)
 		} catch (err) {
 			return res.json({
