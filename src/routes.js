@@ -1,3 +1,4 @@
+import express from 'express';
 import generalController from './controller/generalController';
 import AuthController from './controller/AuthController';
 import seedController from './controller/seedController';
@@ -59,7 +60,7 @@ const routes = (route) => {
 	route.route('/imgn/api/v1/user/file/get/:user_id').get(confirmUserMiddleware(true), userController.getAllUserFiles);
 	route.route('/imgn/api/v1/user/file/add').post(confirmUserMiddleware(true), userController.fileAdd);
 	route.route('/imgn/api/v1/user/file/delete').delete(confirmUserMiddleware(true), userController.fileDelete);
-
+	route.route('/imgn/api/v1/project/imgfile/uploadProfileIMG').post(userController.profileImageUpload);
 	/**
    	* Company controller
 	*/
@@ -224,7 +225,6 @@ const routes = (route) => {
 	route.route('/imgn/api/v1/pay/execute').post(payController.execute);
 	route.route('/imgn/api/v1/pay/cancel').get(payController.cancel);
 	route.route('/imgn/api/v1/pay/return').get(payController.return);
-
 	//route.route('/imgn/api/v1/seed/:model/:number').get(seedController.seed);
 	//route.route('/imgn/api/v1/seed/fillDB').get(seedController.fillDB);
 };
