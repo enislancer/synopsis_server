@@ -6,7 +6,7 @@ module.exports = {
 	init_db: false,
 	env: 0, // ( 0 - local, 1 - dev, 2 - prod )
 
-	db_name: 'imgn',
+	db_name: 'synopsis',
 
 
 	db_path_local: 'localhost',
@@ -15,7 +15,8 @@ module.exports = {
 
 	breakdown_server: true,
 	
-	script_breakdown_server_ip_local: 'http://scrip-breakdown-dev.us-east-1.elasticbeanstalk.com/', // Dev
+	//script_breakdown_server_ip_local: 'http://scrip-breakdown-dev.us-east-1.elasticbeanstalk.com/', // Dev
+	script_breakdown_server_ip_local: 'http://localhost:8000/', // Dev
 	script_breakdown_server_port: 8000,
 
 	default_scene_time_min: 30,
