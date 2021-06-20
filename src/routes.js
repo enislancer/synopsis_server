@@ -47,6 +47,8 @@ const routes = (route) => {
 	route.route('/imgn/api/v1/user/invite').post(userController.inviteUser);
 	route.route('/imgn/api/v1/user/project/add').post(userController.projectAdd);
 	route.route('/imgn/api/v1/user/project/remove').post(userController.projectRemove);
+	route.route('/imgn/api/v1/user/project/projectEdit').put(userController.projectEdit);  // where is your client work folder?
+	route.route('/imgn/api/v1/user/project/uploadProjectImg').post(userController.uploadProjectImg);  // where is your client work folder?
 	route.route('/imgn/api/v1/user/project/nameEdit').post(userController.projectNameEdit);
 	route.route('/imgn/api/v1/project/imgfile/upload').post(userController.projectImageUpload);
 	route.route('/imgn/api/v1/user/acceptInvitation/:company_id/:email/:code').get(userController.acceptInvitation);

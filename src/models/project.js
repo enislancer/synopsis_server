@@ -1,7 +1,7 @@
 "use strict";
 import DataTypes from "sequelize";
 
-module.exports = (sequelize, Sequelize) => {
+module.exports = (sequelize, DataTypes) => {
   const Project = sequelize.define(
     "Project",
     {

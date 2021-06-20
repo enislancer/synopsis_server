@@ -12,6 +12,7 @@ import utils from '../utils/utils';
 
 const httpStatus = require('http-status');
 var config = require('../config/config');
+const fs = require('fs');
 
 const JWT_SECRET = 'yt-secret-';
 const sequelize = require('../models');
@@ -19,11 +20,28 @@ const { User, Supplier, Project, Company, Task, TaskCategory, TaskType, TaskTitl
 const { Op } = require("sequelize");
 
 var path = require('path');
+
 var apikey = require("apikeygen").apikey;
 var awsSDK = require('../utils/awsSDK')
 
-const expTokenHours = 4;
+// const multer = require('multer')
+// const express = require('express')
+// const app = express()
+// app.use(express.static(__dirname+'./public/'));
 
+
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, './public/uploads/')
+//   },
+//   filename: (req, file, cb) => {
+//     cb(null, Date.now() + '-' +file.originalname)
+//   }
+// })
+
+// const upload = multer({ storage: storage }).single('file')
+
+const expTokenHours = 4;
 const UserController = {
 	
 	register: async (req, res, next) => {
@@ -1661,7 +1679,54 @@ const UserController = {
 			}
 		}
 	},
-	
+	projectEdit: async (req, res, next) => {
+		//Edit project name and profile image code
+		try{
+			let project_name = req.body.project_name;
+			let project_id = parseInt(req.body.project_id);
+
+			let result = await Project.update({project_name:project_name}, {where: { id: project_id}});
+			
+			// let project = await Project.findone({where: {id: project_id}})
+			return res.json({
+				response: 0,
+				err: "",
+				// project: project
+			})
+			
+		}catch(error){
+			return res.json({
+				response: 1,
+				err: error,
+			})
+		}
+	},
+	//image upload functionality
+	uploadProjectImg:async (req, res, next) => {
+		
+		try{
+			const {img_detail,img_name,project_id} = req.body;
+			//this need to updated in config file
+			const const_file_path = path.join(__dirname,'../public/uploads/'+img_name);
+			const _path = path.join(__dirname,'../public/uploads/'+img_name);
+			fs.writeFileSync(_path, img_detail);
+			//convert forward slash to backward slash
+			var _updatedPath = const_file_path.replace(/\\/g, "/");
+
+	        let project = await Project.update({img_path:_updatedPath},{where: {id: project_id}})
+			return res.json({
+				response: 0,
+				err: "",
+				msg:"image upload successfully"
+			})
+
+		}catch(error){
+			return res.json({
+				response: 1,
+				err: error,
+			})
+		}
+	},  // so this is wokring? yes this is working i am face one issue in backend side
 	acceptInvitation: async (req, res, next) => {
 		let company_id = parseInt(req.params.company_id);
 		let email = req.params.email;
