@@ -149,13 +149,15 @@ const routes = (route) => {
 	route.route('/imgn/api/v1/project/scene/location/delete').delete(confirmUserMiddleware(true), projectController.deleteSceneLocation);
 	route.route('/imgn/api/v1/project/prop/add').post(confirmUserMiddleware(true), projectController.addProjectProp);
 	route.route('/imgn/api/v1/project/prop/delete').delete(confirmUserMiddleware(true), projectController.deleteProjectProp);
-
+	route.route('/imgn/api/v1/project/scriptSceneCharacter/update').post(confirmUserMiddleware(true), projectController.scriptSceneCharacterUpdate);
+	route.route('/imgn/api/v1/project/scriptSceneCharacter/delete').delete(confirmUserMiddleware(true), projectController.scriptSceneCharacterDelete);
 	/**
    	* Character controller
 	*/
 	route.route('/imgn/api/v1/character/get').get(confirmUserMiddleware(true), characterController.getAll);
 	route.route('/imgn/api/v1/character/get/:character_id').get(confirmUserMiddleware(true), characterController.getCharacter);
 	route.route('/imgn/api/v1/character/add').post(confirmUserMiddleware(true), characterController.create);
+	
 	route.route('/imgn/api/v1/character/delete').delete(confirmUserMiddleware(true), characterController.delete);
 	route.route('/imgn/api/v1/characters/delete').delete(confirmUserMiddleware(true), characterController.delete_characters);
 	
