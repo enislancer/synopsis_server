@@ -10686,10 +10686,7 @@ z
 						update_data = true;
 						let updatedCharacters = []
 						updatedCharacters = scene.characters.filter(item => item.character_id !== character_id)
-						console.log("updatedCharacters" , updatedCharacters)
 						scene.characters = updatedCharacters
-
-						console.log("scene.characters " , scene.characters )
 					}
 
 					
@@ -10756,7 +10753,105 @@ z
 				err: err
 			})
 		}
+	} ,
+
+	scriptAllSceneCharacterDelete: async (req, res, next) => {
+	
+		try{
+			let character_id = req.body.character_id == 'undefined' ? 0 : parseInt(Number(req.body.character_id));
+			let project_id = req.body.project_id == 'undefined' ? 0 : parseInt(Number(req.body.project_id));
+			let chapter_number = req.body.chapter_number == 'undefined' ? 0 : parseInt(Number(req.body.chapter_number));
+			
+
+			let project_script = await ProjectScript.findAll({where: { project_id: project_id , chapter_number: chapter_number}});
+			for (var i = 0; i < project_script.length; i++) {
+				let script = project_script[i].dataValues.script;
+				if (script) {
+					let update_data = false;
+					let found = false;
+
+					
+					for (var j = 0; j < script.scenes.length; j ++){
+						let scene = script.scenes[j];
+						if (scene.characters && (scene.characters.length > 0)) {
+							update_data = true;
+							let updatedCharacters = []
+							updatedCharacters = scene.characters.filter(item => item.character_id !== character_id)
+							scene.characters = updatedCharacters
+						}
+	
+					}
+					
+					
+					
+
+					if (update_data) {
+						let script_params = {
+							script: script
+						}
+					
+						let project_script_result = await ProjectScript.update(script_params, {where: { project_id: project_id, chapter_number: chapter_number }});
+					}	
+				}
+			}
+
+			let project_shooting_day = await ProjectShootingDay.findAll({ 
+				where: { project_id: project_id }
+			});
+			project_shooting_day = project_shooting_day.sort(function(a, b) {
+				return a.pos - b.pos;
+			});
+			for (var j = 0; j < project_shooting_day.length; j++) {
+				let shooting_day_obj = project_shooting_day[j].dataValues;
+				if (shooting_day_obj && shooting_day_obj.shooting_day) {
+					let shooting_day = shooting_day_obj.shooting_day;
+					let update_shooting_day = false;
+					if (shooting_day && shooting_day.scenes && (shooting_day.scenes.length > 0)) {
+						
+						for (var k = 0; k < shooting_day.scenes.length; k++) {
+							let scene = shooting_day.scenes[k];		
+
+							if (scene) {
+								
+									for(var index = 0; index < scene.length ; index ++){
+										let scene1 = scene[index]
+								
+
+										if (scene1){
+											let updatedCharacters = []
+											updatedCharacters = scene1.characters.filter(item => item.character_id !== character_id)
+											scene1.characters = updatedCharacters
+											update_shooting_day = true;
+										}
+									}
+									
+							}
+						}
+						if (update_shooting_day) {
+							let params1 = {
+								shooting_day: shooting_day
+							}
+							let project_shooting_day = await ProjectShootingDay.update(params1, {where: { id: shooting_day_obj.id }});
+						}
+					}
+				}
+			}
+
+			
+
+			return res.json({
+				response: 0,
+				err: ""
+			})
+		}
+		catch(err){
+			return res.json({
+				response: 1,
+				err: err
+			})
+		}
 	}
+
 
 
 };
