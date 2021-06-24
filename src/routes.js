@@ -151,6 +151,7 @@ const routes = (route) => {
 	route.route('/imgn/api/v1/project/prop/delete').delete(confirmUserMiddleware(true), projectController.deleteProjectProp);
 	route.route('/imgn/api/v1/project/scriptSceneCharacter/update').post(confirmUserMiddleware(true), projectController.scriptSceneCharacterUpdate);
 	route.route('/imgn/api/v1/project/scriptSceneCharacter/delete').delete(confirmUserMiddleware(true), projectController.scriptSceneCharacterDelete);
+	route.route('/imgn/api/v1/project/scriptAllSceneCharacter/delete').delete(confirmUserMiddleware(true), projectController.scriptAllSceneCharacterDelete)
 	/**
    	* Character controller
 	*/
