@@ -197,7 +197,26 @@ const CharacterController = {
 									script.scenes[i1].characters.push(character)
 									update_data = true;
 								}
-							}
+							}  // enter or update the new chracter in script. scene. characters
+							if (scene){
+								for(var index = 0; index < scene.script.length; index ++)
+								{
+									let script_object = scene.script[index]
+									if(script_object.text == character_name && script_object.type == "def")
+									{
+										scene.script[index].def = ""
+										scene.script[index].text = scene.script[index +1].text
+										scene.script[index].type = "character"
+										scene.script[index].character = character_name
+										update_data = true;
+
+										scene.script.splice(index +1, 1)
+									}
+
+
+								}
+							}  // if the character is not recognized and enter by adding character.
+
 						}
 
 						if (update_data) {
